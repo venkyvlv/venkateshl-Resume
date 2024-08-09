@@ -2,18 +2,25 @@ import React, { useRef, useEffect, useState } from 'react';
 import Sidebar from './Sidebar';
 import Home from './Home';
 import About from './About';
+import Services from './Services';
+import GetInTouch from './GetinTouch';
 // Import other sections similarly
 
 const Profile = () => {
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
+  const serviceRef = useRef(null); 
+  const GetinTouchRef = useRef(null);
   // Create refs for other sections similarly
 
   const [activeSection, setActiveSection] = useState('');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     const homeElement = homeRef.current;
     const aboutElement = aboutRef.current;
+    const serviceElement = serviceRef.current; 
+    const GetinTouchElement = GetinTouchRef.current;
     // Store other section refs similarly
 
     const options = {
@@ -32,11 +39,15 @@ const Profile = () => {
 
     if (homeElement) observer.observe(homeElement);
     if (aboutElement) observer.observe(aboutElement);
+    if (serviceElement) observer.observe(serviceElement);
+    if (GetinTouchElement) observer.observe(GetinTouchElement);
     // Observe other sections similarly
 
     return () => {
       if (homeElement) observer.unobserve(homeElement);
       if (aboutElement) observer.unobserve(aboutElement);
+      if (serviceElement) observer.unobserve(serviceElement);
+      if (GetinTouchElement) observer.unobserve(GetinTouchElement);
       // Unobserve other sections similarly
     };
   }, []);
@@ -45,22 +56,36 @@ const Profile = () => {
     sectionRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    <div className="grid grid-cols-[20%,80%] h-screen">
+    <div className="flex h-screen">
       <Sidebar
         onNavigate={(section) => {
           if (section === 'home') handleScrollToSection(homeRef);
           if (section === 'about') handleScrollToSection(aboutRef);
+          if (section === 'services') handleScrollToSection(serviceRef); 
+          if (section === 'GetinTouch') handleScrollToSection(GetinTouchRef);
           // Handle other sections similarly
         }}
-        activeSection={activeSection} // Pass the active section to Sidebar
+        activeSection={activeSection}
+        isSidebarOpen={isSidebarOpen}
+        toggleSidebar={toggleSidebar}
       />
-      <div className="overflow-auto bg-gray-100">
-        <div ref={homeRef} className="h-screen bg-white" id="home">
+      <div className="flex-1 overflow-auto bg-gray-100">
+        <div ref={homeRef} className="min-h-screen bg-white  md:p-2" id="home">
           <Home />
         </div>
-        <div ref={aboutRef} className="h-screen bg-white" id="about">
+        <div ref={aboutRef} className="min-h-screen bg-white " id="about">
           <About />
+        </div>
+        <div ref={serviceRef} className="min-h-screen bg-white  " id="services">
+          <Services />
+        </div>
+        <div ref={GetinTouchRef} className="min-h-auto bg-white" id="GetinTouch">
+          <GetInTouch />
         </div>
         {/* Include other sections similarly */}
       </div>
