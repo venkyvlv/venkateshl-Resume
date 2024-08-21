@@ -144,3 +144,124 @@
   height: 100%;
   pointer-events: none;
 }
+@keyframes sparkle {
+  0%,
+  100% {
+    transform: scale(0.5) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1) rotate(180deg);
+    opacity: 0.7;
+  }
+}
+
+section.relative {
+  position: relative;
+  overflow: hidden; /* Ensure sparkles are contained within the section */
+}
+
+.sparkle-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1; /* Ensure sparkles are behind content but in front of the background */
+  pointer-events: none; /* Ensure sparkles don’t interfere with any mouse events */
+}
+
+.service-card {
+  position: relative;
+  z-index: 2; /* Ensure content is in front of sparkles */
+}
+
+.sparkle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  animation: sparkle 4s infinite ease-in-out;
+  opacity: 0.8;
+}
+.glitch-section {
+  position: relative;
+  overflow: hidden;
+  background: #000; /* Fallback background color */
+}
+
+.glitch-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #f0f8ff, #e6e6fa, #f5f5dc, #e0ffff); /* Light colors */
+  z-index: 1;
+  animation: heartbeat-glitch 3s infinite;
+  /* Adding a semi-transparent overlay to lighten the background */
+  filter: brightness(90%);
+}
+
+.glitch-bg::before,
+.glitch-bg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  animation: heartbeat-glitch 3s infinite;
+}
+
+.glitch-bg::before {
+  animation-delay: -1.5s;
+  z-index: 1;
+}
+
+.glitch-bg::after {
+  animation-delay: -3s;
+  z-index: 2;
+}
+
+@keyframes heartbeat-glitch {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  25% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+  75% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj4KICA8ZyBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmUtY2FwPSJyb3VuZCIgc3Ryb2tlLXN0eWxlPSJub25lIiBzdHJva2Utb3BhY2l0eT0iLjIiIHN0cm9rZS1jYWxjdWxhcmVkPSJub25lIj48cGF0aCBkPSJNMTAgMEwgNTAgMEwgNTAgNTAiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1sYWluY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIuMiIvPjwvZz4KICA8ZyBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmUtY2FwPSJyb3VuZCIgc3Ryb2tlLXN0eWxlPSJub25lIiBzdHJva2Utb3BhY2l0eT0iLjIiIHN0cm9rZS1jYWxjdWxhcmVkPSJub25lIj48cGF0aCBkPSJNMTAgMEwgNTAgMEwgNTAgNTAiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1sYWluY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIuMiIvPjwvZz4KPC9zdmc+');
+  background-size: 100px 100px;
+  z-index: 3;
+  animation: twinkling 2s infinite;
+}
+
+@keyframes twinkling {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
