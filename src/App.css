@@ -184,84 +184,57 @@ section.relative {
   animation: sparkle 4s infinite ease-in-out;
   opacity: 0.8;
 }
-.glitch-section {
-  position: relative;
-  overflow: hidden;
-  background: #000; /* Fallback background color */
-}
 
-.glitch-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, #f0f8ff, #e6e6fa, #f5f5dc, #e0ffff); /* Light colors */
-  z-index: 1;
-  animation: heartbeat-glitch 3s infinite;
-  /* Adding a semi-transparent overlay to lighten the background */
-  filter: brightness(90%);
-}
 
-.glitch-bg::before,
-.glitch-bg::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: inherit;
-  animation: heartbeat-glitch 3s infinite;
-}
-
-.glitch-bg::before {
-  animation-delay: -1.5s;
-  z-index: 1;
-}
-
-.glitch-bg::after {
-  animation-delay: -3s;
-  z-index: 2;
-}
-
-@keyframes heartbeat-glitch {
+/* styles.css */
+@keyframes sunshade {
   0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  25% {
-    opacity: 0.8;
-    transform: scale(1.05);
+    background-color: rgba(255, 223, 186, 0.5); /* Light shade color */
   }
   50% {
-    opacity: 0.6;
-    transform: scale(1.1);
-  }
-  75% {
-    opacity: 0.8;
-    transform: scale(1.05);
+    background-color: rgba(255, 223, 186, 0.2); /* Lighter shade color */
   }
   100% {
-    opacity: 1;
-    transform: scale(1);
+    background-color: rgba(255, 223, 186, 0.5); /* Light shade color */
   }
 }
 
-.stars {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj4KICA8ZyBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmUtY2FwPSJyb3VuZCIgc3Ryb2tlLXN0eWxlPSJub25lIiBzdHJva2Utb3BhY2l0eT0iLjIiIHN0cm9rZS1jYWxjdWxhcmVkPSJub25lIj48cGF0aCBkPSJNMTAgMEwgNTAgMEwgNTAgNTAiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1sYWluY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIuMiIvPjwvZz4KICA8ZyBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmUtY2FwPSJyb3VuZCIgc3Ryb2tlLXN0eWxlPSJub25lIiBzdHJva2Utb3BhY2l0eT0iLjIiIHN0cm9rZS1jYWxjdWxhcmVkPSJub25lIj48cGF0aCBkPSJNMTAgMEwgNTAgMEwgNTAgNTAiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS1sYWluY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIuMiIvPjwvZz4KPC9zdmc+');
-  background-size: 100px 100px;
-  z-index: 3;
-  animation: twinkling 2s infinite;
+.sunshade-animation {
+  animation: sunshade 5s infinite;
+  transition: transform 0.3s ease; /* Smooth transition for hover effect */
 }
 
-@keyframes twinkling {
-  0% { opacity: 0.5; }
-  50% { opacity: 1; }
-  100% { opacity: 0.5; }
+.sunshade-animation:hover {
+  transform: scale(1.03); /* Slightly zoom in the component */
+  background-color: rgba(255, 223, 186, 0.6); /* Adjust shade on hover */
+}
+
+
+
+@keyframes moveUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-bar1 {
+  animation: moveUpDown 2s infinite;
+}
+
+.animate-bar2 {
+  animation: moveUpDown 2s infinite reverse;
+}
+
+.animate-bar3 {
+  animation: moveUpDown 2s infinite;
+}
+
+.animate-bar4 {
+  animation: moveUpDown 2s infinite reverse;
 }

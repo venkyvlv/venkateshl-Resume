@@ -3,7 +3,7 @@ import sidePic from "../assets/venkysidepic.jpg";
 
 const About = () => {
   return (
-    <section className="glitch-section relative">
+    <section className="glitch-section relative pb-12 min-h-screen">
       <div className="glitch-bg" />
 
       <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-10 grid grid-cols-1 md:grid-cols-5 gap-4 relative z-10">
