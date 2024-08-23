@@ -1,4 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
+import {
+  FaArrowUp,
+  FaArrowDown,
+  FaArrowLeft,
+  FaArrowRight,
+} from "react-icons/fa";
 
 const SnakeGame = () => {
   const canvasRef = useRef(null);
@@ -12,8 +18,7 @@ const SnakeGame = () => {
     width: window.innerWidth,
     height: window.innerHeight * 0.75,
   });
-  const [score, setScore] = useState(0);
-  const gridSize = 15;
+  const gridSize = 20;
   const speed = 150;
 
   const startGame = () => {
@@ -26,7 +31,6 @@ const SnakeGame = () => {
     setNextDirection("RIGHT");
     setGameOver(false);
     setIsPlaying(true);
-    setScore(0);
   };
 
   useEffect(() => {
@@ -37,7 +41,6 @@ const SnakeGame = () => {
     };
 
     updateCanvasSize();
-
     window.addEventListener("resize", updateCanvasSize);
 
     return () => {
@@ -90,10 +93,7 @@ const SnakeGame = () => {
 
       setSnake(newSnake);
 
-      if (
-        Math.abs(newHead.x - food.x) < gridSize &&
-        Math.abs(newHead.y - food.y) < gridSize
-      ) {
+      if (newHead.x === food.x && newHead.y === food.y) {
         setSnake([food, ...snake]);
         setFood({
           x:
@@ -103,47 +103,32 @@ const SnakeGame = () => {
             Math.floor(Math.random() * (canvasSize.height / gridSize)) *
             gridSize,
         });
-        setScore((prevScore) => prevScore + 10);
       }
 
       ctx.clearRect(0, 0, canvasSize.width, canvasSize.height);
 
-      ctx.fillStyle = "white";
+      // Draw the snake
       newSnake.forEach((segment, index) => {
-        ctx.fillRect(segment.x, segment.y, gridSize, gridSize);
+        ctx.beginPath();
         if (index === 0) {
-          ctx.fillStyle = "yellow";
-          ctx.fillRect(segment.x, segment.y, gridSize, gridSize);
-          ctx.fillStyle = "black";
-          ctx.beginPath();
-          ctx.moveTo(segment.x + gridSize / 2, segment.y + gridSize / 2);
-          if (direction === "UP") {
-            ctx.lineTo(
-              segment.x + gridSize / 4,
-              segment.y + gridSize / 2 - gridSize / 4
-            );
-          } else if (direction === "DOWN") {
-            ctx.lineTo(
-              segment.x + gridSize / 4,
-              segment.y + gridSize / 2 + gridSize / 4
-            );
-          } else if (direction === "LEFT") {
-            ctx.lineTo(
-              segment.x + gridSize / 2 - gridSize / 4,
-              segment.y + gridSize / 4
-            );
-          } else if (direction === "RIGHT") {
-            ctx.lineTo(
-              segment.x + gridSize / 2 + gridSize / 4,
-              segment.y + gridSize / 4
-            );
-          }
-          ctx.closePath();
-          ctx.fill();
+          // Draw the head as a white circle
+          ctx.arc(
+            segment.x + gridSize / 2,
+            segment.y + gridSize / 2,
+            gridSize / 2,
+            0,
+            2 * Math.PI
+          );
           ctx.fillStyle = "white";
+          ctx.fill();
+        } else {
+          // Draw the body as red squares
+          ctx.fillStyle = "#FFB800";
+          ctx.fillRect(segment.x, segment.y, gridSize, gridSize);
         }
       });
 
+      // Draw the food
       ctx.fillStyle = "#FFB800";
       ctx.beginPath();
       ctx.arc(
@@ -175,38 +160,7 @@ const SnakeGame = () => {
       }
     };
 
-    const handleTouchStart = (e) => {
-      e.preventDefault();
-      const touch = e.touches[0];
-      const touchX = touch.clientX;
-      const touchY = touch.clientY;
-
-      const canvasRect = canvas.getBoundingClientRect();
-      const canvasX = touchX - canvasRect.left;
-      const canvasY = touchY - canvasRect.top;
-
-      const width = canvasSize.width;
-      const height = canvasSize.height;
-
-      if (canvasX < width / 3) {
-        setNextDirection(direction !== "RIGHT" ? "LEFT" : direction);
-      } else if (canvasX > (2 * width) / 3) {
-        setNextDirection(direction !== "LEFT" ? "RIGHT" : direction);
-      } else if (canvasY < height / 3) {
-        setNextDirection(direction !== "DOWN" ? "UP" : direction);
-      } else if (canvasY > (2 * height) / 3) {
-        setNextDirection(direction !== "UP" ? "DOWN" : direction);
-      }
-    };
-
-    const handleTouchEnd = (e) => {
-      e.preventDefault();
-      // Optionally handle touch end events if needed
-    };
-
     window.addEventListener("keydown", handleKeyDown);
-    canvas.addEventListener("touchstart", handleTouchStart);
-    canvas.addEventListener("touchend", handleTouchEnd);
 
     const gameLoop = () => {
       setDirection(nextDirection);
@@ -218,19 +172,27 @@ const SnakeGame = () => {
     return () => {
       clearInterval(intervalId);
       window.removeEventListener("keydown", handleKeyDown);
-      canvas.removeEventListener("touchstart", handleTouchStart);
-      canvas.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [
-    direction,
-    nextDirection,
-    snake,
-    food,
-    gameOver,
-    isPlaying,
-    canvasSize,
-    score,
-  ]);
+  }, [direction, nextDirection, snake, food, gameOver, isPlaying, canvasSize]);
+
+  const handleControl = (dir) => {
+    switch (dir) {
+      case "UP":
+        if (direction !== "DOWN") setNextDirection("UP");
+        break;
+      case "DOWN":
+        if (direction !== "UP") setNextDirection("DOWN");
+        break;
+      case "LEFT":
+        if (direction !== "RIGHT") setNextDirection("LEFT");
+        break;
+      case "RIGHT":
+        if (direction !== "LEFT") setNextDirection("RIGHT");
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <div
@@ -241,20 +203,6 @@ const SnakeGame = () => {
         height: "100%",
         margin: "0 auto",
       }}>
-      <div
-        style={{
-          position: "absolute",
-          top: "10px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "100%",
-          textAlign: "center",
-          color: "white",
-          fontSize: "24px",
-          zIndex: 1,
-        }}>
-        Score: {score}
-      </div>
       <canvas
         ref={canvasRef}
         width={canvasSize.width}
@@ -277,7 +225,6 @@ const SnakeGame = () => {
             textAlign: "center",
             padding: "0 10px",
             boxSizing: "border-box",
-            zIndex: 1,
           }}>
           {gameOver && !isPlaying && (
             <div
@@ -309,83 +256,86 @@ const SnakeGame = () => {
       )}
       <div
         style={{
-          position: "absolute",
+          position: "fixed",
           bottom: "20px",
           left: "50%",
           transform: "translateX(-50%)",
           display: "flex",
-          justifyContent: "space-between",
-          width: "80%",
-          maxWidth: "300px",
-          zIndex: 1,
+          flexDirection: "column",
+          alignItems: "center",
         }}>
-        <button
-          onTouchStart={() =>
-            setNextDirection(direction !== "RIGHT" ? "LEFT" : direction)
-          }
+        <div
           style={{
-            padding: "10px",
-            fontSize: "16px",
-            backgroundColor: "#1C9F8C",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            flex: 1,
-            marginRight: "5px",
+            display: "flex",
+            flexDirection: "column",
           }}>
-          Left
-        </button>
-        <button
-          onTouchStart={() =>
-            setNextDirection(direction !== "LEFT" ? "RIGHT" : direction)
-          }
-          style={{
-            padding: "10px",
-            fontSize: "16px",
-            backgroundColor: "#1C9F8C",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            flex: 1,
-            marginRight: "5px",
-          }}>
-          Right
-        </button>
-        <button
-          onTouchStart={() =>
-            setNextDirection(direction !== "DOWN" ? "UP" : direction)
-          }
-          style={{
-            padding: "10px",
-            fontSize: "16px",
-            backgroundColor: "#1C9F8C",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            flex: 1,
-            marginRight: "5px",
-          }}>
-          Up
-        </button>
-        <button
-          onTouchStart={() =>
-            setNextDirection(direction !== "UP" ? "DOWN" : direction)
-          }
-          style={{
-            padding: "10px",
-            fontSize: "16px",
-            backgroundColor: "#1C9F8C",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            flex: 1,
-          }}>
-          Down
-        </button>
+          <div
+            style={{
+              borderRadius: "50%",
+              cursor: "pointer",
+              left: "35%",
+              position: "relative",
+            }}>
+            <FaArrowUp
+              size={30}
+              onClick={() => handleControl("UP")}
+              style={{
+                color: "#1C9F8C",
+              }}
+            />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "10px",
+            }}>
+            <div
+              style={{
+                borderRadius: "50%",
+                padding: "10px",
+                cursor: "pointer",
+              }}>
+              <FaArrowLeft
+                size={30}
+                onClick={() => handleControl("LEFT")}
+                style={{
+                  color: "#1C9F8C",
+                }}
+              />
+            </div>
+            <div
+              style={{
+                borderRadius: "50%",
+                padding: "10px",
+                cursor: "pointer",
+              }}>
+              <FaArrowRight
+                size={30}
+                onClick={() => handleControl("RIGHT")}
+                style={{
+                  color: "#1C9F8C",
+                }}
+              />
+            </div>
+          </div>
+          <div
+            style={{
+              borderRadius: "50%",
+              left: "35%",
+              position: "relative",
+              cursor: "pointer",
+              textAlign: "center",
+            }}>
+            <FaArrowDown
+              size={30}
+              onClick={() => handleControl("DOWN")}
+              style={{
+                color: "#1C9F8C",
+              }}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
