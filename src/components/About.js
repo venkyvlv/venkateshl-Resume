@@ -1,5 +1,5 @@
 import React from "react";
-import sidePic from "../assets/venkysidepic.jpg";
+import sidePic from "../assets/venky-prpic.jpg";
 
 const About = () => {
   return (
@@ -19,7 +19,7 @@ const About = () => {
             Who am <span className="text-[#FFB800]">I?</span>
           </h2>
           <h1 className="text-2xl md:text-4xl font-extrabold text-gray-900 mt-2">
-            I'm <span className="text-[#FFB800]">Venkatsh L.</span>, a React Js
+            I'm <span className="text-[#FFB800]">Venkatesh L.</span>, a React Js
             Developer and UX/UI Designer
           </h1>
           <p className="mt-4 text-gray-700 text-sm md:text-base">

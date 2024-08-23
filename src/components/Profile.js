@@ -17,7 +17,8 @@ const Profile = () => {
 
   const playAudio = () => {
     const audio = audioRef.current;
-    audio.volume = 0.1; // Set volume to 20%
+    audio.volume = 0.3; // Set volume to 20%
+    audio.loop = true;
     audio
       .play()
       .then(() => setIsPlaying(true))
@@ -34,7 +35,7 @@ const Profile = () => {
   useEffect(() => {
     const audio = audioRef.current;
     audio.muted = false;
-    audio.volume = 0.1; // Set volume to 10%
+    audio.volume = 0.3; // Set volume to 10%
 
     const handlePlay = () =>
       audio

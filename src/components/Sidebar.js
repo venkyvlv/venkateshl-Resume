@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import profilePic from "../assets/venky-prpic.jpg";
+import profilePic from "../assets/favicon1.svg";
 
 const Sidebar = ({
   onNavigate,
@@ -33,7 +33,7 @@ const Sidebar = ({
         <img
           src={profilePic}
           alt="Profile"
-          className="rounded-full w-24 h-24 mb-4 mx-auto"
+          className="rounded-full w-24 h-24 mb-4 mx-auto shadow-[0px_0px_16px_#198474] p-1.5"
         />
         <h1 className="text-2xl font-bold text-center">Venkatesh L.</h1>
         <p className="text-[#FFB800] mb-6 text-center">Available for work</p>
