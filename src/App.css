@@ -238,3 +238,77 @@ section.relative {
 .animate-bar4 {
   animation: moveUpDown 2s infinite reverse;
 }
+
+
+.loader {
+  border-top-color: #3498db; /* Replace with your preferred color */
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.bg-animate-gradient {
+  background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fad0c4, #fbc2eb);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+.animate-pulse {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+
+/* Loader container styling */
+.loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 9999;
+  transition: opacity 1s ease;
+}
+
+/* Style for the loader content */
+.loader-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  position: relative;
+}
+

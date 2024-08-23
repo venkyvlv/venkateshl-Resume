@@ -57,7 +57,7 @@ const generateSparkles = (count) => {
     const color = getBrightSparkleColor();
     const position = getRandomPosition();
     const size = getRandomSize();
-    const delay = `${Math.random() * 4}s`; // Random delay between 0s and 4s
+    const delay = `${Math.random() * 3}s`; // Random delay between 0s and 4s
 
     return (
       <div

@@ -4,14 +4,17 @@ import Home from "./Home";
 import About from "./About";
 import Services from "./Services";
 import GetInTouch from "./GetinTouch";
-import RolesResponiblities from "./RolesResponiblities"; // Import the Roles component
+import RolesResponiblities from "./RolesResponiblities";
+import Loader from "./Loader"; // Import the Loader component
 
 const Profile = () => {
+  const [loading, setLoading] = useState(true); // Track if loading is complete
+
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
   const serviceRef = useRef(null);
   const GetinTouchRef = useRef(null);
-  const rolesRef = useRef(null); // Create ref for Roles section
+  const rolesRef = useRef(null);
 
   const [activeSection, setActiveSection] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -21,12 +24,12 @@ const Profile = () => {
     const aboutElement = aboutRef.current;
     const serviceElement = serviceRef.current;
     const GetinTouchElement = GetinTouchRef.current;
-    const rolesElement = rolesRef.current; // Get Roles element
+    const rolesElement = rolesRef.current;
 
     const options = {
       root: null,
       rootMargin: "0px",
-      threshold: 0.5, // Trigger when 50% of the section is visible
+      threshold: 0.5,
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -41,14 +44,14 @@ const Profile = () => {
     if (aboutElement) observer.observe(aboutElement);
     if (serviceElement) observer.observe(serviceElement);
     if (GetinTouchElement) observer.observe(GetinTouchElement);
-    if (rolesElement) observer.observe(rolesElement); // Observe Roles section
+    if (rolesElement) observer.observe(rolesElement);
 
     return () => {
       if (homeElement) observer.unobserve(homeElement);
       if (aboutElement) observer.unobserve(aboutElement);
       if (serviceElement) observer.unobserve(serviceElement);
       if (GetinTouchElement) observer.unobserve(GetinTouchElement);
-      if (rolesElement) observer.unobserve(rolesElement); // Unobserve Roles section
+      if (rolesElement) observer.unobserve(rolesElement);
     };
   }, []);
 
@@ -60,6 +63,10 @@ const Profile = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  if (loading) {
+    return <Loader onComplete={() => setLoading(false)} />; // Show loader until complete
+  }
+
   return (
     <div className="flex h-screen">
       <Sidebar
@@ -68,13 +75,16 @@ const Profile = () => {
           if (section === "about") handleScrollToSection(aboutRef);
           if (section === "services") handleScrollToSection(serviceRef);
           if (section === "GetinTouch") handleScrollToSection(GetinTouchRef);
-          if (section === "roles") handleScrollToSection(rolesRef); // Handle Roles section
+          if (section === "roles") handleScrollToSection(rolesRef);
         }}
         activeSection={activeSection}
         isSidebarOpen={isSidebarOpen}
         toggleSidebar={toggleSidebar}
       />
-      <div className="flex-1 overflow-auto bg-gray-100">
+      <div
+        className={`flex-1 overflow-auto bg-gray-100 profile-content ${
+          !loading ? "animate-doorOpen" : ""
+        }`}>
         <div ref={homeRef} className="min-h-screen bg-white md:p-2" id="home">
           <Home />
         </div>
@@ -93,8 +103,6 @@ const Profile = () => {
           id="GetinTouch">
           <GetInTouch />
         </div>
-
-        {/* Include other sections similarly */}
       </div>
     </div>
   );
