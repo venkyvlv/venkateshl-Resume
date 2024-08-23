@@ -13,7 +13,7 @@ const SnakeGame = () => {
     height: window.innerHeight * 0.75,
   });
   const [score, setScore] = useState(0);
-  const gridSize = 15; // Size of the grid cells
+  const gridSize = 15;
   const speed = 150;
 
   const startGame = () => {
@@ -199,8 +199,14 @@ const SnakeGame = () => {
       }
     };
 
+    const handleTouchEnd = (e) => {
+      e.preventDefault();
+      // Optionally handle touch end events if needed
+    };
+
     window.addEventListener("keydown", handleKeyDown);
     canvas.addEventListener("touchstart", handleTouchStart);
+    canvas.addEventListener("touchend", handleTouchEnd);
 
     const gameLoop = () => {
       setDirection(nextDirection);
@@ -213,6 +219,7 @@ const SnakeGame = () => {
       clearInterval(intervalId);
       window.removeEventListener("keydown", handleKeyDown);
       canvas.removeEventListener("touchstart", handleTouchStart);
+      canvas.removeEventListener("touchend", handleTouchEnd);
     };
   }, [
     direction,
@@ -300,6 +307,86 @@ const SnakeGame = () => {
           )}
         </div>
       )}
+      <div
+        style={{
+          position: "absolute",
+          bottom: "20px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          display: "flex",
+          justifyContent: "space-between",
+          width: "80%",
+          maxWidth: "300px",
+          zIndex: 1,
+        }}>
+        <button
+          onTouchStart={() =>
+            setNextDirection(direction !== "RIGHT" ? "LEFT" : direction)
+          }
+          style={{
+            padding: "10px",
+            fontSize: "16px",
+            backgroundColor: "#1C9F8C",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            flex: 1,
+            marginRight: "5px",
+          }}>
+          Left
+        </button>
+        <button
+          onTouchStart={() =>
+            setNextDirection(direction !== "LEFT" ? "RIGHT" : direction)
+          }
+          style={{
+            padding: "10px",
+            fontSize: "16px",
+            backgroundColor: "#1C9F8C",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            flex: 1,
+            marginRight: "5px",
+          }}>
+          Right
+        </button>
+        <button
+          onTouchStart={() =>
+            setNextDirection(direction !== "DOWN" ? "UP" : direction)
+          }
+          style={{
+            padding: "10px",
+            fontSize: "16px",
+            backgroundColor: "#1C9F8C",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            flex: 1,
+            marginRight: "5px",
+          }}>
+          Up
+        </button>
+        <button
+          onTouchStart={() =>
+            setNextDirection(direction !== "UP" ? "DOWN" : direction)
+          }
+          style={{
+            padding: "10px",
+            fontSize: "16px",
+            backgroundColor: "#1C9F8C",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            flex: 1,
+          }}>
+          Down
+        </button>
+      </div>
     </div>
   );
 };
