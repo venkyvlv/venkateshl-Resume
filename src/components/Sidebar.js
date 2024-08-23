@@ -9,9 +9,14 @@ const Sidebar = ({
   toggleSidebar,
 }) => {
   const handleNavClick = (section) => {
-    onNavigate(section);
-    if (isSidebarOpen) {
-      toggleSidebar(); // Close the sidebar if it is open
+    if (section === "snakeGame") {
+      // Open the Snake game in a new tab
+      window.open("/snake-game", "_blank");
+    } else {
+      onNavigate(section);
+      if (isSidebarOpen) {
+        toggleSidebar(); // Close the sidebar if it is open
+      }
     }
   };
 
@@ -88,18 +93,22 @@ const Sidebar = ({
             }`}>
             Get in Touch
           </NavLink>
+          <NavLink
+            to="#snakeGame"
+            onClick={() => handleNavClick("snakeGame")}
+            className={`block py-2 ${
+              activeSection === "snakeGame"
+                ? "text-[#FFB800]"
+                : "text-gray-300 hover:text-[#FFB800]"
+            }`}>
+            Snake Game
+          </NavLink>
         </nav>
         <div className="fixed top-0 left-0 min-h-24 w-1.5 bg-[#F56C6C] z-30 animate-bar1"></div>
         <div className="fixed top-6 left-2 min-h-24 w-1.5 bg-[#FFB800] z-30 animate-bar2"></div>
-        {/* <div className="fixed top-0 right-3 h-44 w-2 bg-[#00FFFF] z-30 animate-bar2"></div>
-        <div className="fixed top-0 right-0 h-8 w-2 bg-[#FFFF33] z-30 animate-bar1"></div> */}
-        {/* <div className="fixed bottom-0 left-2 min-h-screen w-1 bg-[#FFD700] z-30 animate-bar3"></div>
-        <div className="fixed bottom-0 left-0 min-h-screen w-1 bg-[#2196F3] z-30 animate-bar4"></div> */}
         <div className="fixed bottom-9 right-2 h-24 w-1.5 bg-[#FFB800] z-30 animate-bar4"></div>
         <div className="fixed bottom-3 right-0 h-24 w-1.5 bg-[#F0F0F0] z-30 animate-bar3"></div>
       </div>
-
-      {/* Add bars for animation */}
     </>
   );
 };

@@ -6,18 +6,17 @@ import Services from "./Services";
 import GetInTouch from "./GetinTouch";
 import RolesResponiblities from "./RolesResponiblities";
 import Loader from "./Loader";
-// import music from "../assets/lightmusic.wav";
 import music from "../assets/lightmusic2.mpeg";
-import { FaPlay, FaPause } from "react-icons/fa"; // Use FaPlay and FaPause
+import { FaPlay, FaPause } from "react-icons/fa";
 
 const Profile = () => {
   const audioRef = useRef(new Audio(music));
   const [loading, setLoading] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false); // State to track if audio is playing
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const playAudio = () => {
     const audio = audioRef.current;
-    audio.volume = 0.3; // Set volume to 20%
+    audio.volume = 0.3;
     audio.loop = true;
     audio
       .play()
@@ -35,7 +34,7 @@ const Profile = () => {
   useEffect(() => {
     const audio = audioRef.current;
     audio.muted = false;
-    audio.volume = 0.3; // Set volume to 10%
+    audio.volume = 0.3;
 
     const handlePlay = () =>
       audio
@@ -45,7 +44,6 @@ const Profile = () => {
           console.error("Audio play error:", error);
         });
 
-    // Play audio on component mount
     handlePlay();
 
     return () => {
