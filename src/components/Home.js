@@ -45,11 +45,11 @@ const Home = () => {
       <div className="h-screen bg-black bg-opacity-60 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-5xl font-bold mb-4">
-            Venkatesh <span className="text-red-500">L.</span>
+            Venkatesh <span className="text-[#FFB800]">L.</span>
           </h1>
           <p className="text-2xl font-semibold">
             I'm a{" "}
-            <span className="text-red-500">
+            <span className="text-[#FFB800]">
               <Typewriter
                 words={workingAs}
                 loop={5}

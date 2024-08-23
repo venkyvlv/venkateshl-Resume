@@ -16,10 +16,10 @@ const About = () => {
         </div>
         <div className="col-span-1 md:col-span-4 md:ml-10">
           <h2 className="text-xl md:text-2xl font-bold text-gray-900">
-            Who am <span className="text-red-500">I?</span>
+            Who am <span className="text-[#FFB800]">I?</span>
           </h2>
           <h1 className="text-2xl md:text-4xl font-extrabold text-gray-900 mt-2">
-            I'm <span className="text-red-500">Venkatsh L.</span>, a React Js
+            I'm <span className="text-[#FFB800]">Venkatsh L.</span>, a React Js
             Developer and UX/UI Designer
           </h1>
           <p className="mt-4 text-gray-700 text-sm md:text-base">
@@ -41,7 +41,7 @@ const About = () => {
 
               <div className="mb-2 md:mb-0">
                 <div className="text-gray-700 font-semibold">Email:</div>
-                <div className="text-red-500">vlvenky02@gmail.com</div>
+                <div className="text-[#FFB800]">vlvenky02@gmail.com</div>
               </div>
               <div>
                 <div className="text-gray-700 font-semibold">From:</div>

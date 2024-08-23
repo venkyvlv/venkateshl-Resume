@@ -27,7 +27,7 @@ const Sidebar = ({
         )}
       </button>
       <div
-        className={`fixed top-0 left-0 h-full bg-black text-white transition-transform transform ${
+        className={`fixed top-0 left-0 h-full bg-[#1C9F8C] text-white transition-transform transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 md:relative md:flex md:flex-col md:items-center py-10 z-40 px-4`}>
         <img
@@ -36,15 +36,15 @@ const Sidebar = ({
           className="rounded-full w-24 h-24 mb-4 mx-auto"
         />
         <h1 className="text-2xl font-bold text-center">Venkatesh L.</h1>
-        <p className="text-gray-400 mb-6 text-center">Available for work</p>
+        <p className="text-[#FFB800] mb-6 text-center">Available for work</p>
         <nav className="text-center text-sm">
           <NavLink
             to="#home"
             onClick={() => handleNavClick("home")}
             className={`block py-2 ${
               activeSection === "home"
-                ? "text-red-500"
-                : "text-gray-300 hover:text-red-500"
+                ? "text-[#FFB800]"
+                : "text-gray-300 hover:text-[#FFB800]"
             }`}>
             Home
           </NavLink>
@@ -53,8 +53,8 @@ const Sidebar = ({
             onClick={() => handleNavClick("about")}
             className={`block py-2 ${
               activeSection === "about"
-                ? "text-red-500"
-                : "text-gray-300 hover:text-red-500"
+                ? "text-[#FFB800]"
+                : "text-gray-300 hover:text-[#FFB800]"
             }`}>
             About
           </NavLink>
@@ -63,8 +63,8 @@ const Sidebar = ({
             onClick={() => handleNavClick("roles")}
             className={`block py-2 ${
               activeSection === "roles"
-                ? "text-red-500"
-                : "text-gray-300 hover:text-red-500"
+                ? "text-[#FFB800]"
+                : "text-gray-300 hover:text-[#FFB800]"
             }`}>
             Skills & Responsibilities
           </NavLink>
@@ -73,8 +73,8 @@ const Sidebar = ({
             onClick={() => handleNavClick("services")}
             className={`block py-2 ${
               activeSection === "services"
-                ? "text-red-500"
-                : "text-gray-300 hover:text-red-500"
+                ? "text-[#FFB800]"
+                : "text-gray-300 hover:text-[#FFB800]"
             }`}>
             Services
           </NavLink>
@@ -83,20 +83,20 @@ const Sidebar = ({
             onClick={() => handleNavClick("GetinTouch")}
             className={`block py-2 ${
               activeSection === "GetinTouch"
-                ? "text-red-500"
-                : "text-gray-300 hover:text-red-500"
+                ? "text-[#FFB800]"
+                : "text-gray-300 hover:text-[#FFB800]"
             }`}>
             Get in Touch
           </NavLink>
         </nav>
-        <div className="fixed top-0 left-0 min-h-24 w-1.5 bg-[#2196F3] z-30 animate-bar1"></div>
-        <div className="fixed top-6 left-2 min-h-24 w-1.5 bg-[#FFD700] z-30 animate-bar2"></div>
+        <div className="fixed top-0 left-0 min-h-24 w-1.5 bg-[#F56C6C] z-30 animate-bar1"></div>
+        <div className="fixed top-6 left-2 min-h-24 w-1.5 bg-[#FFB800] z-30 animate-bar2"></div>
         {/* <div className="fixed top-0 right-3 h-44 w-2 bg-[#00FFFF] z-30 animate-bar2"></div>
         <div className="fixed top-0 right-0 h-8 w-2 bg-[#FFFF33] z-30 animate-bar1"></div> */}
         {/* <div className="fixed bottom-0 left-2 min-h-screen w-1 bg-[#FFD700] z-30 animate-bar3"></div>
         <div className="fixed bottom-0 left-0 min-h-screen w-1 bg-[#2196F3] z-30 animate-bar4"></div> */}
-        <div className="fixed bottom-9 right-2 h-24 w-1.5 bg-[#9C27B0] z-30 animate-bar4"></div>
-        <div className="fixed bottom-3 right-0 h-24 w-1.5 bg-[#00BCD4] z-30 animate-bar3"></div>
+        <div className="fixed bottom-9 right-2 h-24 w-1.5 bg-[#FFB800] z-30 animate-bar4"></div>
+        <div className="fixed bottom-3 right-0 h-24 w-1.5 bg-[#F0F0F0] z-30 animate-bar3"></div>
       </div>
 
       {/* Add bars for animation */}
