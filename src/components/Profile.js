@@ -5,10 +5,53 @@ import About from "./About";
 import Services from "./Services";
 import GetInTouch from "./GetinTouch";
 import RolesResponiblities from "./RolesResponiblities";
-import Loader from "./Loader"; // Import the Loader component
+import Loader from "./Loader";
+// import music from "../assets/lightmusic.wav";
+import music from "../assets/lightmusic2.mpeg";
+import { FaPlay, FaPause } from "react-icons/fa"; // Use FaPlay and FaPause
 
 const Profile = () => {
-  const [loading, setLoading] = useState(true); // Track if loading is complete
+  const audioRef = useRef(new Audio(music));
+  const [loading, setLoading] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false); // State to track if audio is playing
+
+  const playAudio = () => {
+    const audio = audioRef.current;
+    audio.volume = 0.1; // Set volume to 20%
+    audio
+      .play()
+      .then(() => setIsPlaying(true))
+      .catch((error) => {
+        console.error("Audio play error:", error);
+      });
+  };
+
+  const pauseAudio = () => {
+    audioRef.current.pause();
+    setIsPlaying(false);
+  };
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    audio.muted = false;
+    audio.volume = 0.1; // Set volume to 10%
+
+    const handlePlay = () =>
+      audio
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch((error) => {
+          console.error("Audio play error:", error);
+        });
+
+    // Play audio on component mount
+    handlePlay();
+
+    return () => {
+      audio.pause();
+      setIsPlaying(false);
+    };
+  }, [setIsPlaying]);
 
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
@@ -55,6 +98,12 @@ const Profile = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!loading) {
+      playAudio();
+    }
+  }, [loading]);
+
   const handleScrollToSection = (sectionRef) => {
     sectionRef.current.scrollIntoView({ behavior: "smooth" });
   };
@@ -64,7 +113,7 @@ const Profile = () => {
   };
 
   if (loading) {
-    return <Loader onComplete={() => setLoading(false)} />; // Show loader until complete
+    return <Loader onComplete={() => setLoading(false)} />;
   }
 
   return (
@@ -103,6 +152,16 @@ const Profile = () => {
           id="GetinTouch">
           <GetInTouch />
         </div>
+      </div>
+
+      {/* Background Music */}
+      <div className="fixed bottom-4 left-4 flex space-x-2 z-50">
+        <button
+          onClick={isPlaying ? pauseAudio : playAudio}
+          className="bg-[#1C9F8C] p-2 rounded-full text-white"
+          style={{ fontSize: "18px" }}>
+          {isPlaying ? <FaPause /> : <FaPlay />}
+        </button>
       </div>
     </div>
   );

@@ -1,21 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { servicesData } from "../utilities/constant";
-
-// Function to generate bright pastel colors for sparkles
-const getBrightSparkleColor = () => {
-  const colors = [
-    "#FFEBEE", // Light Pink
-    "#FFCDD2", // Light Coral
-    "#FFEB3B", // Bright Yellow
-    "#E1F5FE", // Light Blue
-    "#B9FBC0", // Light Mint
-    "#F3E5F5", // Light Lavender
-    "#E0F2F1", // Light Teal
-    "#FF9E80", // Light Orange
-    "#B3E5FC", // Light Blue
-  ];
-  return colors[Math.floor(Math.random() * colors.length)];
-};
 
 // Function to generate vibrant gradient colors
 const getRandomGradient = () => {
@@ -41,6 +25,21 @@ const getRandomGradient = () => {
   return `linear-gradient(to right, ${color1}, ${color2})`;
 };
 
+const getBrightSparkleColor = () => {
+  const colors = [
+    "#FFEBEE",
+    "#FFCDD2",
+    "#FFEB3B",
+    "#E1F5FE",
+    "#B9FBC0",
+    "#F3E5F5",
+    "#E0F2F1",
+    "#FF9E80",
+    "#B3E5FC",
+  ];
+  return colors[Math.floor(Math.random() * colors.length)];
+};
+
 const getRandomPosition = () => {
   return {
     top: `${Math.random() * 100}%`,
@@ -57,7 +56,7 @@ const generateSparkles = (count) => {
     const color = getBrightSparkleColor();
     const position = getRandomPosition();
     const size = getRandomSize();
-    const delay = `${Math.random() * 2}s`; // Random delay between 0s and 4s
+    const delay = `${Math.random() * 2}s`; // Random delay between 0s and 2s
 
     return (
       <div
@@ -77,6 +76,22 @@ const generateSparkles = (count) => {
 };
 
 const Services = () => {
+  const [gradients, setGradients] = useState([]);
+
+  useEffect(() => {
+    // Function to update gradients
+    const updateGradients = () => {
+      const newGradients = servicesData.map(() => getRandomGradient());
+      setGradients(newGradients);
+    };
+
+    updateGradients(); // Set initial gradients
+
+    const intervalId = setInterval(updateGradients, 10000); // Update every 10 seconds
+
+    return () => clearInterval(intervalId); // Clear interval on component unmount
+  }, []);
+
   return (
     <section className="py-6 px-4 bg-gray-100 relative overflow-hidden">
       <div className="sparkle-bg">
@@ -88,29 +103,27 @@ const Services = () => {
           Services I offer to my clients
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {servicesData.map((service, index) => {
-            const gradient = getRandomGradient();
-
-            return (
+          {servicesData.map((service, index) => (
+            <div
+              key={index}
+              className="service-card p-4 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-transform transition-shadow duration-300 ease-in-out transform hover:scale-105"
+              style={{
+                background: gradients[index],
+                transition: "background 1s ease-in-out",
+              }}>
               <div
-                key={index}
-                className="service-card p-4 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-transform transition-shadow duration-300 ease-in-out transform hover:scale-105"
-                style={{ background: gradient }}>
-                <div
-                  className="text-3xl sm:text-4xl md:text-5xl mb-4"
-                  style={{ color: "#9C27B0" }}>
-                  {/* Set icon color to Purple */}
-                  <i className={service.icon}></i>
-                </div>
-                <h3 className="text-lg sm:text-xl font-semibold mb-2">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 text-justify text-sm sm:text-base">
-                  {service.description}
-                </p>
+                className="text-3xl sm:text-4xl md:text-5xl mb-4"
+                style={{ color: "#9C27B0" }}>
+                <i className={service.icon}></i>
               </div>
-            );
-          })}
+              <h3 className="text-lg sm:text-xl font-semibold mb-2">
+                {service.title}
+              </h3>
+              <p className="text-gray-600 text-justify text-sm sm:text-base">
+                {service.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
