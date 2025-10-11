@@ -101,7 +101,7 @@ const Home = () => {
               <div className="w-full h-full bg-gradient-to-tr from-white/60 via-white/90 to-white/60 rounded-full blur-sm" />
             </div>
             <div className="text-center">
-              <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-4  ">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4  ">
                 Venkatesh <span className="text-[#e0097b85]">L.</span>
               </h1>
               <p className="text-2xl font-semibold">
