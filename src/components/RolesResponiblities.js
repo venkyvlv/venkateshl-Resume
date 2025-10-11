@@ -175,7 +175,8 @@ const RolesResponiblities = () => {
               ? "border-b border-orange-500 text-orange-500"
               : "text-gray-600 hover:text-orange-500"
           }`}
-          onClick={() => setActiveTab("skills")}>
+          onClick={() => setActiveTab("skills")}
+        >
           Skills
         </button>
         <button
@@ -184,7 +185,8 @@ const RolesResponiblities = () => {
               ? "border-b border-orange-500 text-orange-500"
               : "text-gray-600 hover:text-orange-500"
           }`}
-          onClick={() => setActiveTab("responsibilities")}>
+          onClick={() => setActiveTab("responsibilities")}
+        >
           Responsibilities
         </button>
       </div>

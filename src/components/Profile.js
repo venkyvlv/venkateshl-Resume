@@ -132,8 +132,9 @@ const Profile = () => {
       <div
         className={`flex-1 overflow-auto bg-gray-100 profile-content ${
           !loading ? "animate-doorOpen" : ""
-        }`}>
-        <div ref={homeRef} className="min-h-screen bg-white md:p-2" id="home">
+        }`}
+      >
+        <div ref={homeRef} className="min-h-screen bg-white" id="home">
           <Home />
         </div>
         <div ref={aboutRef} className="min-h-screen bg-white" id="about">
@@ -148,7 +149,8 @@ const Profile = () => {
         <div
           ref={GetinTouchRef}
           className="min-h-auto bg-white"
-          id="GetinTouch">
+          id="GetinTouch"
+        >
           <GetInTouch />
         </div>
       </div>
@@ -158,7 +160,8 @@ const Profile = () => {
         <button
           onClick={isPlaying ? pauseAudio : playAudio}
           className="bg-[#1C9F8C] p-2 rounded-full text-white"
-          style={{ fontSize: "18px" }}>
+          style={{ fontSize: "18px" }}
+        >
           {isPlaying ? <FaPause /> : <FaPlay />}
         </button>
       </div>

@@ -93,49 +93,108 @@
 
 /* Particle Animation */
 @keyframes sparkle {
-  0% { opacity: 0; transform: scale(0.5); }
-  50% { opacity: 1; transform: scale(1.5); }
-  100% { opacity: 0; transform: scale(0.5); }
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
 }
 
 .particle {
   position: absolute;
   width: 5px;
   height: 5px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 100%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
   border-radius: 50%;
   animation: sparkle 2s infinite;
   pointer-events: none;
 }
 
-.particle:nth-child(1) { left: 10%; top: 10%; animation-duration: 1.5s; }
-.particle:nth-child(2) { left: 20%; top: 20%; animation-duration: 2s; }
-.particle:nth-child(3) { left: 30%; top: 30%; animation-duration: 1.8s; }
-.particle:nth-child(4) { left: 40%; top: 40%; animation-duration: 2.2s; }
-.particle:nth-child(5) { left: 50%; top: 50%; animation-duration: 1.7s; }
+.particle:nth-child(1) {
+  left: 10%;
+  top: 10%;
+  animation-duration: 1.5s;
+}
+.particle:nth-child(2) {
+  left: 20%;
+  top: 20%;
+  animation-duration: 2s;
+}
+.particle:nth-child(3) {
+  left: 30%;
+  top: 30%;
+  animation-duration: 1.8s;
+}
+.particle:nth-child(4) {
+  left: 40%;
+  top: 40%;
+  animation-duration: 2.2s;
+}
+.particle:nth-child(5) {
+  left: 50%;
+  top: 50%;
+  animation-duration: 1.7s;
+}
 
 /* Snowfall Animation */
 @keyframes snowfall {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
 }
 
 .snowflake {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  background-color: #fff;
-  border-radius: 50%;
-  opacity: 0.8;
+  /* thin vertical streaks instead of round dots */
+  width: 2px;
+  height: 36px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.45) 60%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  border-radius: 2px;
+  opacity: 0.9;
+  filter: blur(0.6px);
   animation: snowfall linear infinite;
   pointer-events: none;
 }
 
-.snowflake:nth-child(1) { left: 5%; animation-duration: 10s; }
-.snowflake:nth-child(2) { left: 15%; animation-duration: 12s; }
-.snowflake:nth-child(3) { left: 25%; animation-duration: 8s; }
-.snowflake:nth-child(4) { left: 35%; animation-duration: 14s; }
-.snowflake:nth-child(5) { left: 45%; animation-duration: 11s; }
+.snowflake:nth-child(1) {
+  left: 5%;
+  animation-duration: 10s;
+}
+.snowflake:nth-child(2) {
+  left: 15%;
+  animation-duration: 12s;
+}
+.snowflake:nth-child(3) {
+  left: 25%;
+  animation-duration: 8s;
+}
+.snowflake:nth-child(4) {
+  left: 35%;
+  animation-duration: 14s;
+}
+.snowflake:nth-child(5) {
+  left: 45%;
+  animation-duration: 11s;
+}
 .snowfall-container {
   position: absolute;
   top: 0;
@@ -185,7 +244,6 @@ section.relative {
   opacity: 0.8;
 }
 
-
 /* styles.css */
 @keyframes sunshade {
   0% {
@@ -208,8 +266,6 @@ section.relative {
   transform: scale(1.03); /* Slightly zoom in the component */
   background-color: rgba(255, 223, 186, 0.6); /* Adjust shade on hover */
 }
-
-
 
 @keyframes moveUpDown {
   0% {
@@ -239,7 +295,6 @@ section.relative {
   animation: moveUpDown 2s infinite reverse;
 }
 
-
 .loader {
   border-top-color: #3498db; /* Replace with your preferred color */
   animation: spin 1s infinite linear;
@@ -253,7 +308,6 @@ section.relative {
     transform: rotate(360deg);
   }
 }
-
 
 @keyframes gradient {
   0% {
@@ -278,14 +332,14 @@ section.relative {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
     transform: scale(1.1);
   }
 }
-
 
 /* Loader container styling */
 .loader-container {
@@ -312,3 +366,220 @@ section.relative {
   position: relative;
 }
 
+/* Glassy waves and shimmer animations */
+@keyframes waveMove {
+  0% {
+    transform: translateX(-10%);
+  }
+  50% {
+    transform: translateX(10%);
+  }
+  100% {
+    transform: translateX(-10%);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-120%) skewX(-12deg);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(20%) skewX(-12deg);
+    opacity: 0.18;
+  }
+  100% {
+    transform: translateX(120%) skewX(-12deg);
+    opacity: 0;
+  }
+}
+
+.animate-wave {
+  animation: waveMove 10s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+.animate-shimmer {
+  animation: shimmer 3.5s linear infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-wave,
+  .animate-shimmer {
+    animation: none;
+  }
+}
+
+/* diagonal glassy wave animation */
+@keyframes diagonalMove {
+  0% {
+    transform: translate(-10%, 30%) rotate(12deg);
+    opacity: 0.18;
+  }
+  40% {
+    transform: translate(10%, -10%) rotate(12deg);
+    opacity: 0.28;
+  }
+  80% {
+    transform: translate(30%, -40%) rotate(12deg);
+    opacity: 0.18;
+  }
+  100% {
+    transform: translate(40%, -60%) rotate(12deg);
+    opacity: 0;
+  }
+}
+
+.animate-diagonal-wave {
+  animation: diagonalMove 6.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-diagonal-wave {
+    animation: none;
+  }
+}
+
+@keyframes diagonalMoveTop {
+  0% {
+    transform: translate(-40%, 10%) rotate(-12deg);
+    opacity: 0.1;
+  }
+  50% {
+    transform: translate(10%, -20%) rotate(-12deg);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(40%, -50%) rotate(-12deg);
+    opacity: 0.1;
+  }
+}
+
+.animate-diagonal-wave-top {
+  animation: diagonalMoveTop 8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-diagonal-wave-top {
+    animation: none;
+  }
+}
+
+/* SVG wave line styling */
+.wave-line {
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.wave-line--sub {
+  filter: blur(0.6px);
+}
+
+/* make the diagonal thin line blur softer */
+.blur-md {
+  filter: blur(6px);
+}
+
+/* sky glass gradient background */
+.bg-sky-glass {
+  /* elephant-tone glassy gradient: muted gray-blue / lavender */
+  background: linear-gradient(
+      135deg,
+      rgba(99, 115, 129, 0.06) 0%,
+      rgba(120, 126, 156, 0.06) 50%,
+      rgba(112, 106, 140, 0.05) 100%
+    ),
+    linear-gradient(180deg, #eef1f6 0%, #e9edf6 50%, #e6e9f3 100%);
+}
+
+/* Dark grassy animated background */
+.bg-grassy-dark {
+  position: relative;
+  background: linear-gradient(180deg, #051018 0%, #071725 40%, #081827 100%);
+  overflow: hidden;
+}
+
+/* attractive fallback gradient for the main background */
+.bg-attractive {
+  background: linear-gradient(135deg, #ff7a66 0%, #ffb800 45%, #6b46c1 100%);
+}
+
+/* Hero title styles for better readability */
+.hero-title {
+  position: relative;
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(6px) saturate(1.05);
+  -webkit-backdrop-filter: blur(6px) saturate(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.hero-accent {
+  color: #ffb800;
+  font-weight: 800;
+  text-shadow: 0 2px 12px rgba(255, 184, 0, 0.12);
+  -webkit-text-stroke: 0.3px rgba(0, 0, 0, 0.15);
+}
+
+.hero-title:hover {
+  transform: translateY(-2px);
+  transition: transform 220ms ease;
+}
+
+.bg-grassy-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    120deg,
+    rgba(20, 40, 30, 0.06) 0 2px,
+    rgba(10, 20, 15, 0.02) 2px 4px
+  );
+  mix-blend-mode: overlay;
+  opacity: 0.9;
+  z-index: 0;
+  animation: grassShift 12s linear infinite;
+}
+
+@keyframes grassShift {
+  0% {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+  50% {
+    transform: translateX(-8%) translateY(-1%) scale(1.02);
+  }
+  100% {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+}
+
+/* subtle vertical sway for individual blades (using overlay) */
+@keyframes bladeSway {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .bg-grassy-dark::before {
+    animation: none;
+  }
+}

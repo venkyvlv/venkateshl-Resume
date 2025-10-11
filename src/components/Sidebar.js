@@ -24,7 +24,8 @@ const Sidebar = ({
     <>
       <button
         className="md:hidden fixed top-4 left-4 text-white text-2xl z-50"
-        onClick={toggleSidebar}>
+        onClick={toggleSidebar}
+      >
         {isSidebarOpen ? (
           <i className="fas fa-arrow-left"></i> // Font Awesome left arrow icon
         ) : (
@@ -32,13 +33,14 @@ const Sidebar = ({
         )}
       </button>
       <div
-        className={`fixed top-0 left-0 h-full bg-[#1C9F8C] text-white transition-transform transform ${
+        className={`fixed top-0 left-0 h-full bg-[#6c5a5a] !hidden text-white transition-transform transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } md:translate-x-0 md:relative md:flex md:flex-col md:items-center py-10 z-40 px-4`}>
+        } md:translate-x-0 md:relative md:flex md:flex-col md:items-center py-10 z-40 px-4`}
+      >
         <img
           src={profilePic}
           alt="Profile"
-          className="rounded-full w-24 h-24 mb-4 mx-auto shadow-[0px_0px_16px_#198474] p-1.5"
+          className="rounded-full w-24 h-24 mb-4 mx-auto shadow-[0px_0px_16px_#906d6d] p-1.5"
         />
         <h1 className="text-2xl font-bold text-center">Venkatesh L.</h1>
         <p className="text-[#FFB800] mb-6 text-center">Available for work</p>
@@ -50,7 +52,8 @@ const Sidebar = ({
               activeSection === "home"
                 ? "text-[#FFB800]"
                 : "text-gray-300 hover:text-[#FFB800]"
-            }`}>
+            }`}
+          >
             Home
           </NavLink>
           <NavLink
@@ -60,7 +63,8 @@ const Sidebar = ({
               activeSection === "about"
                 ? "text-[#FFB800]"
                 : "text-gray-300 hover:text-[#FFB800]"
-            }`}>
+            }`}
+          >
             About
           </NavLink>
           <NavLink
@@ -70,7 +74,8 @@ const Sidebar = ({
               activeSection === "roles"
                 ? "text-[#FFB800]"
                 : "text-gray-300 hover:text-[#FFB800]"
-            }`}>
+            }`}
+          >
             Skills & Responsibilities
           </NavLink>
           <NavLink
@@ -80,7 +85,8 @@ const Sidebar = ({
               activeSection === "services"
                 ? "text-[#FFB800]"
                 : "text-gray-300 hover:text-[#FFB800]"
-            }`}>
+            }`}
+          >
             Services
           </NavLink>
           <NavLink
@@ -90,7 +96,8 @@ const Sidebar = ({
               activeSection === "GetinTouch"
                 ? "text-[#FFB800]"
                 : "text-gray-300 hover:text-[#FFB800]"
-            }`}>
+            }`}
+          >
             Get in Touch
           </NavLink>
           <NavLink
@@ -100,7 +107,8 @@ const Sidebar = ({
               activeSection === "snakeGame"
                 ? "text-[#FFB800]"
                 : "text-gray-300 hover:text-[#FFB800]"
-            }`}>
+            }`}
+          >
             Snake Game
           </NavLink>
         </nav>
