@@ -81,17 +81,17 @@ const RolesResponiblities = () => {
       {
         data: [8, 9, 9, 9.5, 8.6, 8, 9, 8, 8],
         backgroundColor: [
-          "rgba(255, 99, 132, 0.55)",
-          "rgba(54, 162, 235, 0.55)",
-          "rgba(255, 206, 86, 0.55)",
-          "rgba(75, 192, 192, 0.55)",
-          "rgba(153, 102, 255, 0.55)",
-          "rgba(255, 159, 64, 0.55)",
-          "rgba(255, 99, 132, 0.55)",
-          "rgba(54, 162, 235, 0.55)",
-          "rgba(255, 206, 86, 0.55)",
+          "rgba(255, 99, 132, 0.6)",
+          "rgba(54, 162, 235, 0.6)",
+          "rgba(255, 206, 86, 0.6)",
+          "rgba(75, 192, 192, 0.6)",
+          "rgba(153, 102, 255, 0.6)",
+          "rgba(255, 159, 64, 0.6)",
+          "rgba(255, 99, 132, 0.6)",
+          "rgba(54, 162, 235, 0.6)",
+          "rgba(255, 206, 86, 0.6)",
         ],
-        borderColor: "#ffffffcc",
+        borderColor: "#fff",
         borderWidth: 2,
       },
     ],
@@ -105,86 +105,90 @@ const RolesResponiblities = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#e3e4e6] via-[#d9dadc] to-[#f2f3f4] py-16 overflow-hidden">
-      {/* Soft glow spots for depth */}
-      <div className="absolute top-16 left-24 w-[25vw] h-[25vw] bg-[#ffffff33] rounded-full blur-3xl"></div>
-      <div className="absolute bottom-20 right-28 w-[22vw] h-[22vw] bg-[#b6b8bb33] rounded-full blur-3xl"></div>
+    <section className="relative min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-[#f8fafc] via-[#ffffff] to-[#eef2f3] overflow-hidden py-20">
+      {/* Subtle glowing background accents */}
+      <div className="absolute top-0 left-0 w-[35vw] h-[35vw] bg-[#ffb800]/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-[30vw] h-[30vw] bg-[#63a241]/10 rounded-full blur-3xl"></div>
 
-      <div className="relative z-10 max-w-6xl w-[92%] bg-[#ffffff40] backdrop-blur-2xl border border-[#e0e0e0]/40 rounded-3xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] p-10 transition-all duration-500 hover:shadow-[0_10px_60px_rgba(0,0,0,0.12)]">
-        <h2 className="text-3xl font-bold text-center mb-10 tracking-tight text-gray-900">
-          <span className="bg-gradient-to-r from-[#63a241] via-[#ffb800] to-[#ff7a66] bg-clip-text text-transparent">
-            Skills & Responsibilities
-          </span>
-        </h2>
+      {/* Title */}
+      <h2 className="text-4xl md:text-4xl font-extrabold mb-10 tracking-tight text-center relative z-10">
+        <span className="bg-gradient-to-r from-[#63a241] via-[#ffb800] to-[#ff7a66] bg-clip-text text-transparent">
+          Skills & Responsibilities
+        </span>
+      </h2>
 
-        {/* Tabs */}
-        <div className="flex justify-center mb-8">
-          {["skills", "responsibilities"].map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`relative mx-4 px-6 py-2 text-sm font-semibold uppercase tracking-wide transition-all duration-300 rounded-full ${
-                activeTab === tab
-                  ? "text-[#ff7a66] bg-white/70 shadow-md"
-                  : "text-gray-600 hover:text-[#63a241] hover:bg-white/50"
-              }`}
-            >
-              {tab === "skills" ? "Skills" : "Responsibilities"}
-            </button>
-          ))}
-        </div>
+      {/* Tabs */}
+      <div className="flex justify-center mb-10 z-10">
+        {["skills", "responsibilities"].map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`mx-3 px-6 py-2 text-sm font-semibold uppercase tracking-wide transition-all duration-300 rounded-full ${
+              activeTab === tab
+                ? "text-white bg-gradient-to-r from-[#63a241] via-[#ffb800] to-[#ff7a66] shadow-lg scale-105"
+                : "text-gray-700 bg-white/50 hover:bg-white/80"
+            }`}
+          >
+            {tab === "skills" ? "Skills" : "Responsibilities"}
+          </button>
+        ))}
+      </div>
 
-        {/* Chart Display */}
-        <div className="transition-all duration-700 ease-in-out">
-          {activeTab === "skills" ? (
-            <div className="relative h-[400px]">
-              <Bar
-                data={skillsData}
-                options={{
-                  responsive: true,
-                  maintainAspectRatio: false,
-                  scales: {
-                    y: {
-                      beginAtZero: true,
-                      grid: { color: "rgba(0,0,0,0.05)" },
-                    },
-                    x: {
-                      ticks: { color: "#333" },
+      {/* Chart Section */}
+      <div className="relative z-10 w-full px-4 md:px-10">
+        {activeTab === "skills" ? (
+          <div className="w-full h-[500px]">
+            <Bar
+              data={skillsData}
+              options={{
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                    grid: { color: "rgba(0,0,0,0.05)" },
+                    ticks: { color: "#333" },
+                  },
+                  x: {
+                    ticks: { color: "#333" },
+                    grid: { color: "rgba(0,0,0,0.03)" },
+                  },
+                },
+                plugins: {
+                  legend: {
+                    position: "top",
+                    labels: { color: "#444", font: { size: 13 } },
+                  },
+                  tooltip: tooltipCallbacks,
+                },
+              }}
+            />
+          </div>
+        ) : (
+          <div className="w-full h-[500px] flex justify-center items-center">
+            <Pie
+              data={responsibilitiesData}
+              options={{
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                  padding: 10,
+                },
+                plugins: {
+                  legend: {
+                    position: "right",
+                    labels: {
+                      color: "#444",
+                      boxWidth: 14,
+                      font: { size: 13 },
                     },
                   },
-                  plugins: {
-                    legend: {
-                      position: "top",
-                      labels: { color: "#444", font: { size: 13 } },
-                    },
-                    tooltip: tooltipCallbacks,
-                  },
-                }}
-              />
-            </div>
-          ) : (
-            <div className="relative h-[400px] flex justify-center items-center">
-              <Pie
-                data={responsibilitiesData}
-                options={{
-                  responsive: true,
-                  maintainAspectRatio: false,
-                  plugins: {
-                    legend: {
-                      position: "right",
-                      labels: {
-                        color: "#444",
-                        boxWidth: 12,
-                        font: { size: 13 },
-                      },
-                    },
-                    tooltip: tooltipCallbacks,
-                  },
-                }}
-              />
-            </div>
-          )}
-        </div>
+                  tooltip: tooltipCallbacks,
+                },
+              }}
+            />
+          </div>
+        )}
       </div>
     </section>
   );

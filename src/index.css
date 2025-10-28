@@ -561,3 +561,48 @@ code {
     filter: brightness(1);
   }
 }
+@keyframes spinLoader {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes fadeInLoader {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes pulse-slowLoader {
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+.animate-pulse-slowLoader {
+  animation: pulse-slowLoader 5s ease-in-out infinite;
+}
+@keyframes fadeOutLoader {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+}
+.animate-fadeOutLoader {
+  animation: fadeOutLoader 1s ease forwards;
+}
