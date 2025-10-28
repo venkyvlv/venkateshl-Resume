@@ -1,127 +1,74 @@
 import React, { useState, useEffect } from "react";
 import { servicesData } from "../utilities/constant";
 
-// Function to generate vibrant gradient colors
-const getRandomGradient = () => {
-  const colors = [
-    "#FFEBEE", // Light Pink
-    "#FFCDD2", // Light Coral
-    "#FFEB3B", // Bright Yellow
-    "#E1F5FE", // Light Blue
-    "#B9FBC0", // Light Mint
-    "#F3E5F5", // Light Lavender
-    "#E0F2F1", // Light Teal
-    "#FF9E80", // Light Orange
-    "#B3E5FC", // Light Blue
-    "#FCE4EC", // Light Pink
-    "#FFF3E0", // Extra Light Orange
-    "#D1C4E9", // Light Purple
-  ];
-  const color1 = colors[Math.floor(Math.random() * colors.length)];
-  let color2;
-  do {
-    color2 = colors[Math.floor(Math.random() * colors.length)];
-  } while (color1 === color2); // Ensure different colors for the gradient
-  return `linear-gradient(to right, ${color1}, ${color2})`;
-};
-
-const getBrightSparkleColor = () => {
-  const colors = [
-    "#FFEBEE",
-    "#FFCDD2",
-    "#FFEB3B",
-    "#E1F5FE",
-    "#B9FBC0",
-    "#F3E5F5",
-    "#E0F2F1",
-    "#FF9E80",
-    "#B3E5FC",
-  ];
-  return colors[Math.floor(Math.random() * colors.length)];
-};
-
-const getRandomPosition = () => {
-  return {
-    top: `${Math.random() * 100}%`,
-    left: `${Math.random() * 100}%`,
-  };
-};
-
-const getRandomSize = () => {
-  return `${Math.random() * 10 + 5}px`; // Sparkle size between 5px and 15px
-};
-
-const generateSparkles = (count) => {
-  return Array.from({ length: count }).map((_, index) => {
-    const color = getBrightSparkleColor();
-    const position = getRandomPosition();
-    const size = getRandomSize();
-    const delay = `${Math.random() * 2}s`; // Random delay between 0s and 2s
-
-    return (
-      <div
-        key={index}
-        className="sparkle"
-        style={{
-          width: size,
-          height: size,
-          backgroundColor: color,
-          top: position.top,
-          left: position.left,
-          opacity: 0.8, // Increased opacity for brightness
-          animationDelay: delay,
-        }}></div>
-    );
-  });
-};
-
 const Services = () => {
-  const [gradients, setGradients] = useState([]);
+  const [fadeIn, setFadeIn] = useState(false);
 
   useEffect(() => {
-    // Function to update gradients
-    const updateGradients = () => {
-      const newGradients = servicesData.map(() => getRandomGradient());
-      setGradients(newGradients);
-    };
-
-    updateGradients(); // Set initial gradients
-
-    const intervalId = setInterval(updateGradients, 10000); // Update every 10 seconds
-
-    return () => clearInterval(intervalId); // Clear interval on component unmount
+    const timer = setTimeout(() => setFadeIn(true), 200);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <section className="py-6 px-4 bg-gray-100 relative overflow-hidden">
-      <div className="sparkle-bg">
-        {generateSparkles(230)} {/* Increase the number of sparkles */}
-      </div>
-      <div className="container mx-auto text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold mb-4">My Services</h2>
-        <p className="text-gray-600 mb-8 text-sm sm:text-base">
-          Services I offer to my clients
+    <section className="relative py-20 px-6 bg-gradient-to-br from-[#f5f5f5] via-[#eaeaea] to-[#d8d8d8] overflow-hidden">
+      {/* Glowing background orbs */}
+      <div className="absolute top-[-10%] left-[5%] w-[25vw] h-[25vw] bg-[#ffffff40] rounded-full blur-3xl animate-pulse-slow"></div>
+      <div className="absolute bottom-[-10%] right-[5%] w-[30vw] h-[30vw] bg-[#bcbcbc40] rounded-full blur-3xl animate-pulse-slow"></div>
+
+      <div className="relative z-10 max-w-6xl mx-auto text-center">
+        <h2 className="text-3xl md:text-4xl font-extrabold mb-3 tracking-tight text-gray-900">
+          <span className="bg-gradient-to-r from-[#63a241] via-[#ffb800] to-[#ff7a66] bg-clip-text text-transparent">
+            My Services
+          </span>
+        </h2>
+        <p className="text-gray-700 text-sm md:text-base mb-10">
+          Turning bold ideas into immersive digital experiences
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+        {/* Services Grid */}
+        <div
+          className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-1000 ${
+            fadeIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
+        >
           {servicesData.map((service, index) => (
             <div
               key={index}
-              className="service-card p-4 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-transform transition-shadow duration-300 ease-in-out transform hover:scale-105"
-              style={{
-                background: gradients[index],
-                transition: "background 1s ease-in-out",
-              }}>
+              className="relative p-8 rounded-2xl group overflow-hidden 
+                bg-white/10 backdrop-blur-2xl border border-white/30 
+                shadow-[0_8px_40px_rgba(0,0,0,0.1)] 
+                hover:shadow-[0_12px_60px_rgba(0,0,0,0.2)]
+                transition-all duration-[4000ms] ease-[cubic-bezier(0.25,1,0.3,1)]"
+            >
+              {/* Animated Gradient Background */}
               <div
-                className="text-3xl sm:text-4xl md:text-5xl mb-4"
-                style={{ color: "#9C27B0" }}>
-                <i className={service.icon}></i>
+                className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5 opacity-60 
+                  group-hover:animate-bg-shift-slow"
+              ></div>
+
+              {/* Top gradient line */}
+              <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#63a241] via-[#ffb800] to-[#ff7a66] opacity-80 rounded-t-2xl"></div>
+
+              {/* Inner glow */}
+              <div className="absolute inset-0 border border-white/10 rounded-2xl pointer-events-none"></div>
+
+              <div className="relative z-10">
+                <div className="text-4xl md:text-5xl mb-4 bg-gradient-to-r from-[#63a241] via-[#ffb800] to-[#ff7a66] bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-700 ease-out">
+                  <i className={service.icon}></i>
+                </div>
+
+                <h3 className="text-lg md:text-xl font-semibold mb-3 text-gray-900 group-hover:text-[#63a241] transition-colors duration-500">
+                  {service.title}
+                </h3>
+                <p className="text-gray-700 text-sm md:text-base leading-relaxed">
+                  {service.description}
+                </p>
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-2">
-                {service.title}
-              </h3>
-              <p className="text-gray-600 text-justify text-sm sm:text-base">
-                {service.description}
-              </p>
+
+              {/* Light sweep shimmer */}
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-0 left-[-100%] w-full h-full bg-gradient-to-r from-transparent via-white/25 to-transparent animate-shimmer-slow"></div>
+              </div>
             </div>
           ))}
         </div>

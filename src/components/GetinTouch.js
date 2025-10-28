@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import gitImage from "../assets/giphy-downsized-large.gif"; // Import the GIF
+import gitImage from "../assets/giphy-downsized-large.gif"; // Background animation
 
 const GetInTouch = () => {
   const [formData, setFormData] = useState({
@@ -12,12 +12,8 @@ const GetInTouch = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,9 +23,7 @@ const GetInTouch = () => {
     try {
       const response = await fetch("https://formspree.io/f/xyzgjwak", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
@@ -42,14 +36,8 @@ const GetInTouch = () => {
           subject: "",
           message: "",
         });
-
-        // Set a timeout to clear the success message after 5 seconds
-        setTimeout(() => {
-          setSuccess(null);
-        }, 5000);
-      } else {
-        setSuccess(false);
-      }
+        setTimeout(() => setSuccess(null), 5000);
+      } else setSuccess(false);
     } catch (error) {
       setSuccess(false);
     } finally {
@@ -59,102 +47,72 @@ const GetInTouch = () => {
 
   return (
     <section
-      className="py-10 px-4 bg-cover bg-center relative"
-      style={{ backgroundImage: `url(${gitImage})` }} // Use the imported variable for background image
+      className="relative py-20 px-6 bg-cover bg-center overflow-hidden"
+      style={{ backgroundImage: `url(${gitImage})` }}
     >
-      <div className="absolute inset-0 bg-black opacity-10"></div>{" "}
-      {/* Overlay for better text readability */}
-      <div className="relative container mx-auto z-10">
-        <h2 className="text-4xl font-bold mb-4 text-center text-white">
-          Get in Touch
+      {/* Dark glass overlay */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-3xl"></div>
+
+      {/* Floating gradient glows */}
+      <div className="absolute top-[10%] left-[5%] w-[25vw] h-[25vw] bg-[#ffb80040] rounded-full blur-3xl animate-glow-slow"></div>
+      <div className="absolute bottom-[10%] right-[10%] w-[30vw] h-[30vw] bg-[#63a24140] rounded-full blur-3xl animate-glow-slow"></div>
+
+      {/* Content */}
+      <div className="relative z-10 max-w-3xl mx-auto">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-3 tracking-tight text-white drop-shadow-lg">
+          Get In Touch
         </h2>
-        <p className="text-gray-200 mb-8 text-center">
-          Feel free to reach out to me by filling the form below
+        <p className="text-gray-300 text-center mb-10">
+          I’d love to collaborate! Drop your details below ✨
         </p>
+
+        {/* Glassy Form */}
         <form
           onSubmit={handleSubmit}
-          className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+          className="bg-white/10 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-[0_8px_50px_rgba(0,0,0,0.4)] 
+                     p-8 transition-all duration-700 hover:bg-white/15 hover:shadow-[0_12px_80px_rgba(0,0,0,0.5)]"
+        >
           {success === true && (
-            <p className="text-green-500 text-center mt-4">
-              Message sent successfully!
+            <p className="text-green-400 text-center mb-4 font-semibold animate-fade-in">
+              ✅ Message sent successfully!
             </p>
           )}
           {success === false && (
-            <p className="text-red-500 text-center mt-4">
-              Failed to send message. Please try again.
+            <p className="text-red-400 text-center mb-4 font-semibold animate-fade-in">
+              ❌ Failed to send message. Please try again.
             </p>
           )}
-          <div className="flex flex-col md:flex-row gap-4 mb-4">
-            <div className="w-full md:w-1/2">
-              <label
-                className="block text-gray-700 font-semibold mb-2"
-                htmlFor="name">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#FFB800]"
-                required
-              />
-            </div>
-            <div className="w-full md:w-1/2">
-              <label
-                className="block text-gray-700 font-semibold mb-2"
-                htmlFor="email">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#FFB800]"
-                required
-              />
-            </div>
+
+          {/* Inputs */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            {["name", "email", "phone", "subject"].map((field, i) => (
+              <div key={i}>
+                <label
+                  htmlFor={field}
+                  className="block text-gray-200 font-semibold mb-2 capitalize"
+                >
+                  {field}
+                </label>
+                <input
+                  id={field}
+                  name={field}
+                  type={field === "email" ? "email" : "text"}
+                  value={formData[field]}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-md bg-white/5 text-gray-100 border border-white/20 
+                            focus:border-[#ffb800] focus:ring-2 focus:ring-[#ffb800]/30 
+                            outline-none transition-all duration-300"
+                  required={field !== "phone"}
+                />
+              </div>
+            ))}
           </div>
-          <div className="flex flex-col md:flex-row gap-4 mb-4">
-            <div className="w-full md:w-1/2">
-              <label
-                className="block text-gray-700 font-semibold mb-2"
-                htmlFor="phone">
-                Phone
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#FFB800]"
-              />
-            </div>
-            <div className="w-full md:w-1/2">
-              <label
-                className="block text-gray-700 font-semibold mb-2"
-                htmlFor="subject">
-                Subject
-              </label>
-              <input
-                type="text"
-                id="subject"
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#FFB800]"
-                required
-              />
-            </div>
-          </div>
-          <div className="mb-4">
+
+          <div className="mb-6">
             <label
-              className="block text-gray-700 font-semibold mb-2"
-              htmlFor="message">
+              htmlFor="message"
+              className="block text-gray-200 font-semibold mb-2"
+            >
               Message
             </label>
             <textarea
@@ -162,19 +120,28 @@ const GetInTouch = () => {
               name="message"
               value={formData.message}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#FFB800]"
               rows="5"
-              required></textarea>
+              required
+              className="w-full px-4 py-3 rounded-md bg-white/5 text-gray-100 border border-white/20 
+                        focus:border-[#ffb800] focus:ring-2 focus:ring-[#ffb800]/30 
+                        outline-none transition-all duration-300 resize-none"
+            ></textarea>
           </div>
-          <div className="flex justify-center">
+
+          {/* Submit button */}
+          <div className="text-center">
             {loading ? (
-              <div className="loader">Loading...</div> // Add your loader here
+              <div className="loader mx-auto"></div>
             ) : (
               <button
                 type="submit"
-                className="bg-[#FFB800] text-white py-2 px-4 rounded-md hover:bg-[#FFB800] transition duration-200"
-                style={{ width: "max-content" }}>
-                Send message
+                className="relative bg-gradient-to-r from-[#63a241] via-[#ffb800] to-[#ff7a66] text-white 
+                          font-semibold py-3 px-8 rounded-full overflow-hidden
+                          transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)]
+                          hover:scale-105 hover:shadow-[0_0_40px_#ffb80080]"
+              >
+                <span className="relative z-10">Send Message</span>
+                <span className="absolute inset-0 bg-gradient-to-r from-[#ffb800] to-[#63a241] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></span>
               </button>
             )}
           </div>
