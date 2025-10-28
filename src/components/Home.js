@@ -1,6 +1,20 @@
 import React from "react";
 import { Typewriter } from "react-simple-typewriter";
 import vPic from "../assets/v.jpg";
+import {
+  FaReact,
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaGitAlt,
+  FaGithub,
+} from "react-icons/fa";
+import {
+  SiTailwindcss,
+  SiRedux,
+  SiNextdotjs,
+  SiTypescript,
+} from "react-icons/si";
 
 const Home = () => {
   const workingAs = [
@@ -11,25 +25,41 @@ const Home = () => {
     "Freelancer",
   ];
 
+  const techLogos = [
+    { icon: <FaReact className="text-[#61DAFB]" />, name: "React" },
+    {
+      icon: <SiNextdotjs className="text-black dark:text-white" />,
+      name: "Next.js",
+    },
+    { icon: <FaJs className="text-[#F7DF1E]" />, name: "JavaScript" },
+    { icon: <SiTypescript className="text-[#3178C6]" />, name: "TypeScript" },
+    { icon: <FaHtml5 className="text-[#E34F26]" />, name: "HTML5" },
+    { icon: <FaCss3Alt className="text-[#1572B6]" />, name: "CSS3" },
+    { icon: <SiTailwindcss className="text-[#38BDF8]" />, name: "TailwindCSS" },
+    { icon: <SiRedux className="text-[#764ABC]" />, name: "Redux" },
+    { icon: <FaGitAlt className="text-[#F05032]" />, name: "Git" },
+    { icon: <FaGithub className="text-[#181717]" />, name: "GitHub" },
+  ];
+
   return (
     <div
       className="relative flex items-center justify-center h-screen overflow-hidden 
                  bg-gradient-to-br from-[#e8ebf2] via-[#d9dde4] to-[#cbd2dc]"
     >
-      {/* 🌈 Soft glowing auroras */}
+      {/* 🌈 Glowing auroras */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-[-15%] left-[-15%] w-[50vw] h-[50vw] bg-gradient-to-br from-[#63a241]/40 to-[#ffb800]/25 rounded-full blur-3xl animate-float-slow opacity-70"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-gradient-to-tl from-[#ff7a66]/30 to-[#ffb800]/20 rounded-full blur-3xl animate-float-slower opacity-60"></div>
       </div>
 
-      {/* 🪞 subtle background image */}
+      {/* 🪞 Background image */}
       <img
         src={vPic}
         alt="Background"
         className="absolute inset-0 w-full h-full object-cover opacity-10 mix-blend-soft-light"
       />
 
-      {/* ❄️ floating glass dust */}
+      {/* ❄️ Floating glass dust */}
       <div className="absolute inset-0 pointer-events-none z-10">
         {[...Array(25)].map((_, i) => (
           <div
@@ -46,7 +76,6 @@ const Home = () => {
 
       {/* 🌟 Name and role */}
       <div className="relative z-30 text-center">
-        {/* GLASSY NAME */}
         <h1
           className="text-6xl sm:text-7xl md:text-8xl font-extrabold tracking-tight 
                      bg-clip-text text-transparent 
@@ -55,11 +84,10 @@ const Home = () => {
                      animate-glassyFlow relative inline-block"
         >
           Venkatesh L.
-          {/* ✨ moving shine line */}
           <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/70 to-transparent opacity-0 animate-glassSweep"></span>
         </h1>
 
-        {/* ROLE TYPEWRITER */}
+        {/* Typewriter roles */}
         <p className="text-2xl md:text-3xl font-semibold text-[#1f2937] mt-8 drop-shadow-[0_3px_8px_rgba(255,255,255,0.4)]">
           I'm a{" "}
           <span className="font-bold bg-gradient-to-r from-[#63a241] via-[#ffb800] to-[#ff7a66] bg-clip-text text-transparent">
@@ -74,9 +102,31 @@ const Home = () => {
             />
           </span>
         </p>
+
+        {/* 💠 Floating tech icons */}
+        <div className="mt-14 flex flex-wrap justify-center gap-8">
+          {techLogos.map((tech, index) => (
+            <div
+              key={index}
+              className="group relative flex flex-col items-center justify-center 
+                         w-20 h-20 rounded-2xl bg-white/10 backdrop-blur-md 
+                         border border-white/20 shadow-lg transition-all duration-500 
+                         hover:scale-110 hover:bg-white/30 hover:shadow-2xl"
+              style={{
+                animation: `floaty ${
+                  4 + index
+                }s ease-in-out infinite alternate`,
+              }}
+            >
+              <div className="text-4xl mb-2">{tech.icon}</div>
+              <p className="text-xs font-medium text-gray-800">{tech.name}</p>
+              <span className="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent opacity-0 group-hover:opacity-40 rounded-2xl transition-opacity duration-500"></span>
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* vignette for focus */}
+      {/* vignette for depth */}
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_70%,rgba(0,0,0,0.15))]"></div>
     </div>
   );
