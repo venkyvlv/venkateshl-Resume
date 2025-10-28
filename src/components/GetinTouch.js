@@ -1,25 +1,38 @@
 import React, { useState } from "react";
-import gitImage from "../assets/giphy-downsized-large.gif"; // Background animation
+import gitImage from "../assets/giphy-downsized-large.gif";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+// ✅ Zod Schema (phone required)
+const contactSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters long"),
+  email: z.string().email("Enter a valid email address"),
+  phone: z
+    .string()
+    .min(10, "Phone must be exactly 10 digits")
+    .max(10, "Phone must be exactly 10 digits")
+    .regex(/^[0-9]{10}$/, "Enter a valid 10-digit phone number"),
+  subject: z.string().min(3, "Subject must be at least 3 characters"),
+  message: z.string().min(10, "Message must be at least 10 characters long"),
+});
 
 const GetInTouch = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
-  });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
 
-  const handleChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(contactSchema),
+  });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (formData) => {
     setLoading(true);
     setSuccess(null);
-
     try {
       const response = await fetch("https://formspree.io/f/xyzgjwak", {
         method: "POST",
@@ -29,13 +42,7 @@ const GetInTouch = () => {
 
       if (response.ok) {
         setSuccess(true);
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          subject: "",
-          message: "",
-        });
+        reset();
         setTimeout(() => setSuccess(null), 5000);
       } else setSuccess(false);
     } catch (error) {
@@ -50,14 +57,14 @@ const GetInTouch = () => {
       className="relative py-20 px-6 bg-cover bg-center overflow-hidden"
       style={{ backgroundImage: `url(${gitImage})` }}
     >
-      {/* Dark glass overlay */}
+      {/* 🕶️ Dark overlay */}
       <div className="absolute inset-0 bg-black/50 backdrop-blur-3xl"></div>
 
-      {/* Floating gradient glows */}
+      {/* 🌈 Floating glow accents */}
       <div className="absolute top-[10%] left-[5%] w-[25vw] h-[25vw] bg-[#ffb80040] rounded-full blur-3xl animate-glow-slow"></div>
       <div className="absolute bottom-[10%] right-[10%] w-[30vw] h-[30vw] bg-[#63a24140] rounded-full blur-3xl animate-glow-slow"></div>
 
-      {/* Content */}
+      {/* ✨ Content */}
       <div className="relative z-10 max-w-3xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-3 tracking-tight text-white drop-shadow-lg">
           Get In Touch
@@ -66,9 +73,9 @@ const GetInTouch = () => {
           I’d love to collaborate! Drop your details below ✨
         </p>
 
-        {/* Glassy Form */}
+        {/* 🪟 Glassy Form */}
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           className="bg-white/10 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-[0_8px_50px_rgba(0,0,0,0.4)] 
                      p-8 transition-all duration-700 hover:bg-white/15 hover:shadow-[0_12px_80px_rgba(0,0,0,0.5)]"
         >
@@ -83,52 +90,116 @@ const GetInTouch = () => {
             </p>
           )}
 
-          {/* Inputs */}
+          {/* Inputs grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            {["name", "email", "phone", "subject"].map((field, i) => (
-              <div key={i}>
-                <label
-                  htmlFor={field}
-                  className="block text-gray-200 font-semibold mb-2 capitalize"
-                >
-                  {field}
-                </label>
-                <input
-                  id={field}
-                  name={field}
-                  type={field === "email" ? "email" : "text"}
-                  value={formData[field]}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-md bg-white/5 text-gray-100 border border-white/20 
-                            focus:border-[#ffb800] focus:ring-2 focus:ring-[#ffb800]/30 
-                            outline-none transition-all duration-300"
-                  required={field !== "phone"}
-                />
-              </div>
-            ))}
+            {/* Name */}
+            <div>
+              <label className="block text-gray-200 font-semibold mb-2">
+                Name
+              </label>
+              <input
+                {...register("name")}
+                type="text"
+                className={`w-full px-4 py-3 rounded-md bg-white/5 text-gray-100 border ${
+                  errors.name
+                    ? "border-red-400 focus:ring-red-500"
+                    : "border-white/20 focus:border-[#ffb800]"
+                } focus:ring-2 focus:ring-[#ffb800]/30 outline-none transition-all duration-300`}
+              />
+              {errors.name && (
+                <p className="text-red-400 text-sm mt-1">
+                  {errors.name.message}
+                </p>
+              )}
+            </div>
+
+            {/* Email */}
+            <div>
+              <label className="block text-gray-200 font-semibold mb-2">
+                Email
+              </label>
+              <input
+                {...register("email")}
+                type="email"
+                className={`w-full px-4 py-3 rounded-md bg-white/5 text-gray-100 border ${
+                  errors.email
+                    ? "border-red-400 focus:ring-red-500"
+                    : "border-white/20 focus:border-[#ffb800]"
+                } focus:ring-2 focus:ring-[#ffb800]/30 outline-none transition-all duration-300`}
+              />
+              {errors.email && (
+                <p className="text-red-400 text-sm mt-1">
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
+
+            {/* 📱 Phone */}
+            <div>
+              <label className="block text-gray-200 font-semibold mb-2">
+                Phone
+              </label>
+              <input
+                {...register("phone")}
+                type="text"
+                placeholder="10-digit number"
+                className={`w-full px-4 py-3 rounded-md bg-white/5 text-gray-100 border ${
+                  errors.phone
+                    ? "border-red-400 focus:ring-red-500"
+                    : "border-white/20 focus:border-[#ffb800]"
+                } focus:ring-2 focus:ring-[#ffb800]/30 outline-none transition-all duration-300`}
+              />
+              {errors.phone && (
+                <p className="text-red-400 text-sm mt-1">
+                  {errors.phone.message}
+                </p>
+              )}
+            </div>
+
+            {/* Subject */}
+            <div>
+              <label className="block text-gray-200 font-semibold mb-2">
+                Subject
+              </label>
+              <input
+                {...register("subject")}
+                type="text"
+                className={`w-full px-4 py-3 rounded-md bg-white/5 text-gray-100 border ${
+                  errors.subject
+                    ? "border-red-400 focus:ring-red-500"
+                    : "border-white/20 focus:border-[#ffb800]"
+                } focus:ring-2 focus:ring-[#ffb800]/30 outline-none transition-all duration-300`}
+              />
+              {errors.subject && (
+                <p className="text-red-400 text-sm mt-1">
+                  {errors.subject.message}
+                </p>
+              )}
+            </div>
           </div>
 
+          {/* Message */}
           <div className="mb-6">
-            <label
-              htmlFor="message"
-              className="block text-gray-200 font-semibold mb-2"
-            >
+            <label className="block text-gray-200 font-semibold mb-2">
               Message
             </label>
             <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
+              {...register("message")}
               rows="5"
-              required
-              className="w-full px-4 py-3 rounded-md bg-white/5 text-gray-100 border border-white/20 
-                        focus:border-[#ffb800] focus:ring-2 focus:ring-[#ffb800]/30 
-                        outline-none transition-all duration-300 resize-none"
+              className={`w-full px-4 py-3 rounded-md bg-white/5 text-gray-100 border ${
+                errors.message
+                  ? "border-red-400 focus:ring-red-500"
+                  : "border-white/20 focus:border-[#ffb800]"
+              } focus:ring-2 focus:ring-[#ffb800]/30 outline-none transition-all duration-300 resize-none`}
             ></textarea>
+            {errors.message && (
+              <p className="text-red-400 text-sm mt-1">
+                {errors.message.message}
+              </p>
+            )}
           </div>
 
-          {/* Submit button */}
+          {/* Submit Button */}
           <div className="text-center">
             {loading ? (
               <div className="loader mx-auto"></div>
@@ -141,7 +212,6 @@ const GetInTouch = () => {
                           hover:scale-105 hover:shadow-[0_0_40px_#ffb80080]"
               >
                 <span className="relative z-10">Send Message</span>
-                <span className="absolute inset-0 bg-gradient-to-r from-[#ffb800] to-[#63a241] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></span>
               </button>
             )}
           </div>
