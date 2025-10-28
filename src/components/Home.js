@@ -43,13 +43,14 @@ const Home = () => {
 
   return (
     <div
-      className="relative flex items-center justify-center h-screen overflow-hidden 
-                 bg-gradient-to-br from-[#e8ebf2] via-[#d9dde4] to-[#cbd2dc]"
+      className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden
+                 bg-gradient-to-br from-[#e8ebf2] via-[#d9dde4] to-[#cbd2dc]
+                 px-4 sm:px-6 md:px-8"
     >
       {/* 🌈 Glowing auroras */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-[-15%] left-[-15%] w-[50vw] h-[50vw] bg-gradient-to-br from-[#63a241]/40 to-[#ffb800]/25 rounded-full blur-3xl animate-float-slow opacity-70"></div>
-        <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-gradient-to-tl from-[#ff7a66]/30 to-[#ffb800]/20 rounded-full blur-3xl animate-float-slower opacity-60"></div>
+        <div className="absolute top-[-15%] left-[-15%] w-[60vw] h-[60vw] bg-gradient-to-br from-[#63a241]/40 to-[#ffb800]/25 rounded-full blur-3xl animate-float-slow opacity-70"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[65vw] h-[65vw] bg-gradient-to-tl from-[#ff7a66]/30 to-[#ffb800]/20 rounded-full blur-3xl animate-float-slower opacity-60"></div>
       </div>
 
       {/* 🪞 Background image */}
@@ -61,7 +62,7 @@ const Home = () => {
 
       {/* ❄️ Floating glass dust */}
       <div className="absolute inset-0 pointer-events-none z-10">
-        {[...Array(25)].map((_, i) => (
+        {[...Array(20)].map((_, i) => (
           <div
             key={i}
             className="absolute w-[2px] h-[2px] bg-white rounded-full opacity-50 animate-particle"
@@ -75,9 +76,10 @@ const Home = () => {
       </div>
 
       {/* 🌟 Name and role */}
-      <div className="relative z-30 text-center">
+      <div className="relative z-30 text-center max-w-[90%] sm:max-w-[80%] md:max-w-[70%]">
         <h1
-          className="text-6xl sm:text-7xl md:text-8xl font-extrabold tracking-tight 
+          className="font-extrabold tracking-tight leading-tight
+                     text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl
                      bg-clip-text text-transparent 
                      bg-gradient-to-r from-[#ffffff] via-[#d1e8ff] to-[#a7b9ff]
                      drop-shadow-[0_5px_20px_rgba(0,0,0,0.4)]
@@ -88,7 +90,7 @@ const Home = () => {
         </h1>
 
         {/* Typewriter roles */}
-        <p className="text-2xl md:text-3xl font-semibold text-[#1f2937] mt-8 drop-shadow-[0_3px_8px_rgba(255,255,255,0.4)]">
+        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-[#1f2937] mt-6 sm:mt-8 drop-shadow-[0_3px_8px_rgba(255,255,255,0.4)]">
           I'm a{" "}
           <span className="font-bold bg-gradient-to-r from-[#63a241] via-[#ffb800] to-[#ff7a66] bg-clip-text text-transparent">
             <Typewriter
@@ -104,12 +106,16 @@ const Home = () => {
         </p>
 
         {/* 💠 Floating tech icons */}
-        <div className="mt-14 flex flex-wrap justify-center gap-8">
+        <div
+          className="mt-10 sm:mt-12 md:mt-16 
+                     flex flex-wrap justify-center gap-6 sm:gap-8 md:gap-10"
+        >
           {techLogos.map((tech, index) => (
             <div
               key={index}
               className="group relative flex flex-col items-center justify-center 
-                         w-20 h-20 rounded-2xl bg-white/10 backdrop-blur-md 
+                         w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 
+                         rounded-2xl bg-white/10 backdrop-blur-md 
                          border border-white/20 shadow-lg transition-all duration-500 
                          hover:scale-110 hover:bg-white/30 hover:shadow-2xl"
               style={{
@@ -118,8 +124,12 @@ const Home = () => {
                 }s ease-in-out infinite alternate`,
               }}
             >
-              <div className="text-4xl mb-2">{tech.icon}</div>
-              <p className="text-xs font-medium text-gray-800">{tech.name}</p>
+              <div className="text-3xl sm:text-4xl mb-1 sm:mb-2">
+                {tech.icon}
+              </div>
+              <p className="text-[10px] sm:text-xs md:text-sm font-medium text-gray-800">
+                {tech.name}
+              </p>
               <span className="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent opacity-0 group-hover:opacity-40 rounded-2xl transition-opacity duration-500"></span>
             </div>
           ))}
