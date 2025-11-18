@@ -44,7 +44,7 @@ const Home = () => {
   return (
     <div
       className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden
-                 bg-gradient-to-br from-[#e8ebf2] via-[#d9dde4] to-[#cbd2dc]
+                 bg-gradient-to-br from-[#4379f7] via-[#d9dde4] to-[#cbd2dc]
                  px-4 sm:px-6 md:px-8"
     >
       {/* 🌈 Glowing auroras */}
