@@ -67,7 +67,7 @@ const GetInTouch = () => {
       {/* ✨ Content */}
       <div className="relative z-10 max-w-3xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-3 tracking-tight text-white drop-shadow-lg">
-          Get In Touch
+          Contact us
         </h2>
         <p className="text-gray-300 text-center mb-10">
           I’d love to collaborate! Drop your details below ✨
@@ -105,6 +105,7 @@ const GetInTouch = () => {
                     ? "border-red-400 focus:ring-red-500"
                     : "border-white/20 focus:border-[#ffb800]"
                 } focus:ring-2 focus:ring-[#ffb800]/30 outline-none transition-all duration-300`}
+                placeholder="Enter name"
               />
               {errors.name && (
                 <p className="text-red-400 text-sm mt-1">
@@ -126,6 +127,7 @@ const GetInTouch = () => {
                     ? "border-red-400 focus:ring-red-500"
                     : "border-white/20 focus:border-[#ffb800]"
                 } focus:ring-2 focus:ring-[#ffb800]/30 outline-none transition-all duration-300`}
+                placeholder="Enter Email Address"
               />
               {errors.email && (
                 <p className="text-red-400 text-sm mt-1">
@@ -142,12 +144,12 @@ const GetInTouch = () => {
               <input
                 {...register("phone")}
                 type="text"
-                placeholder="10-digit number"
                 className={`w-full px-4 py-3 rounded-md bg-white/5 text-gray-100 border ${
                   errors.phone
                     ? "border-red-400 focus:ring-red-500"
                     : "border-white/20 focus:border-[#ffb800]"
                 } focus:ring-2 focus:ring-[#ffb800]/30 outline-none transition-all duration-300`}
+                placeholder="Enter Phone Number"
               />
               {errors.phone && (
                 <p className="text-red-400 text-sm mt-1">
@@ -169,6 +171,7 @@ const GetInTouch = () => {
                     ? "border-red-400 focus:ring-red-500"
                     : "border-white/20 focus:border-[#ffb800]"
                 } focus:ring-2 focus:ring-[#ffb800]/30 outline-none transition-all duration-300`}
+                placeholder="Enter Subject"
               />
               {errors.subject && (
                 <p className="text-red-400 text-sm mt-1">
@@ -191,6 +194,7 @@ const GetInTouch = () => {
                   ? "border-red-400 focus:ring-red-500"
                   : "border-white/20 focus:border-[#ffb800]"
               } focus:ring-2 focus:ring-[#ffb800]/30 outline-none transition-all duration-300 resize-none`}
+              placeholder="Enter Details of your Project"
             ></textarea>
             {errors.message && (
               <p className="text-red-400 text-sm mt-1">
